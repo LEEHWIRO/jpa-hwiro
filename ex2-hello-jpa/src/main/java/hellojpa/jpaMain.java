@@ -17,20 +17,10 @@ public class jpaMain {
         tx.begin();
 
         try {
-
-            Team team = new Team();
-            team.setName("TeamA");
-            em.persist(team);
-
             Member member = new Member();
-            member.setUsername("member1");
-            member.setTemaId(team.getId());
+            member.setUsername("C");
+
             em.persist(member);
-
-            Member findMember = em.find(Member.class, member.getId());
-
-            Long findTeamId = findMember.getTemaId();
-            Team findTeam = em.find(Team.class, findTeamId)
 
             tx.commit();
         } catch (Exception e){
