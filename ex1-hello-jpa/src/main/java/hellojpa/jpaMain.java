@@ -24,13 +24,22 @@ public class jpaMain {
 
             Member member = new Member();
             member.setUsername("member1");
-            member.setTemaId(team.getId());
+//            member.changeTeam(team); // **
             em.persist(member);
 
-            Member findMember = em.find(Member.class, member.getId());
+            team.addMember(member);
 
-            Long findTeamId = findMember.getTemaId();
-            Team findTeam = em.find(Team.class, findTeamId)
+//            em.flush();
+//            em.clear();
+
+            Team findTeam = em.find(Team.class, team.getId());  // 1차 캐시
+            List<Member> members = findTeam.getMembers();
+
+            System.out.println("==========================");
+            for (Member m : members) {
+                System.out.println("m = " + m.getUsername());
+            }
+            System.out.println("==========================");
 
             tx.commit();
         } catch (Exception e){
